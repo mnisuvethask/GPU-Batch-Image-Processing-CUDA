@@ -1,4 +1,2 @@
-Operation,CPU_Time_ms,GPU_Time_ms,Speedup
-Grayscale,0,0,0
-Gaussian_Blur,0,0,0
-Sobel_Edge_Detection,0,0,0
+Images_Processed,Image_Size,Total_CPU_Time_ms,Total_GPU_Time_ms,Speedup
+10,1080x1980,0,0,0
