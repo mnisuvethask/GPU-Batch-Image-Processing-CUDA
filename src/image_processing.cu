@@ -95,3 +95,34 @@ void processImageGPU(
     cudaFree(d_input);
     cudaFree(d_gray);
 }
+void processImageCPU(
+    const cv::Mat& input,
+    cv::Mat& grayscale,
+    cv::Mat& blurred,
+    cv::Mat& edges
+)
+{
+    // Convert image to grayscale
+    cv::cvtColor(
+        input,
+        grayscale,
+        cv::COLOR_BGR2GRAY
+    );
+
+    // Apply Gaussian blur
+    cv::GaussianBlur(
+        grayscale,
+        blurred,
+        cv::Size(5, 5),
+        1.5
+    );
+
+    // Apply Sobel edge detection
+    cv::Sobel(
+        blurred,
+        edges,
+        CV_8U,
+        1,
+        1
+    );
+}
