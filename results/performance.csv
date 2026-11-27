@@ -1,2 +1,2 @@
 Images_Processed,Image_Size,Total_CPU_Time_ms,Total_GPU_Time_ms,Speedup
-10,1080x1980,0,0,0
+10,1080x1980,19.7532,317.833,0.0621496
