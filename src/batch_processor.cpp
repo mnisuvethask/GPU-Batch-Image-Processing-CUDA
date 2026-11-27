@@ -3,6 +3,7 @@
 #include <iostream>
 #include <chrono>
 #include <filesystem>
+#include <fstream>
 
 using namespace std;
 using namespace cv;
@@ -85,15 +86,33 @@ int main()
         cout << "GPU Time: " << gpuTime << " ms" << endl;
         cout << "-----------------------------" << endl;
     }
+if (imageCount > 0)
+{
+    double speedup = (totalGPU > 0) ? totalCPU / totalGPU : 0.0;
 
-    if (imageCount > 0)
-    {
-        cout << "\n===== PERFORMANCE SUMMARY =====" << endl;
-        cout << "Images processed: " << imageCount << endl;
-        cout << "Total CPU Time: " << totalCPU << " ms" << endl;
-        cout << "Total GPU Time: " << totalGPU << " ms" << endl;
-        cout << "Speedup: " << totalCPU / totalGPU << "x" << endl;
-    }
+    cout << "\n===== PERFORMANCE SUMMARY =====" << endl;
+    cout << "Images processed: " << imageCount << endl;
+    cout << "Total CPU Time: " << totalCPU << " ms" << endl;
+    cout << "Total GPU Time: " << totalGPU << " ms" << endl;
+    cout << "Speedup: " << speedup << "x" << endl;
+
+    fs::create_directories("results");
+
+    ofstream csv("results/performance.csv");
+
+    csv << "Images_Processed,Image_Size,Total_CPU_Time_ms,"
+           "Total_GPU_Time_ms,Speedup\n";
+
+    csv << imageCount << ","
+        << input.cols << "x" << input.rows << ","
+        << totalCPU << ","
+        << totalGPU << ","
+        << speedup << "\n";
+
+    csv.close();
+
+    cout << "Performance CSV saved." << endl;
+}
 
     return 0;
 }
